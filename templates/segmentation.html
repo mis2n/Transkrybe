@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/al_style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransKribe Application</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var userimage = "{{ relpath }}";
+        var yolodata = "{{ ydata }}";
+    </script>
+    <script src="static/lib/fabric.min.js"></script>
+    <script type="module" src="static/rect_sandbox.js"></script>
+
+    <h1>Transkrybe Application</h1>
+
+    <div class="control">
+        <img src="static/images/colorKey.png">
+    </div>
+
+    <div class="control">
+        <h1>Control Panel</h1>
+        <button id="b1">Update</button><!--modify: send to line-ification> -->
+        <br>
+        <button id="b5">Log Array</button>
+        <br>
+        <button id="b3">Create New Box</button>
+        <br>
+        <button id="b4">Delete Active Box</button>
+        
+        <br>
+        <button id="b6">Cycle Boxes</button>
+        <br>
+        <button id="b2">Show All</button>
+        <br>
+    </div>
+
+    <div class="viewer">
+        <h1>Viewer</h1>
+        <canvas id="canvas"></canvas>
+    </div>
+
+
+
+    </body>
+</body>
+</html>
