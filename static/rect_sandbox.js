@@ -51,6 +51,8 @@ img.src = '/' + userimage;
 import datafile from '/static/data/TODAY_matt_test.json' assert { type: "json"};
 let data = Object.values(datafile);
 
+console.log(yolodata);
+
 var width = data[1];
 var height = data[2];
 var xc = data[3];

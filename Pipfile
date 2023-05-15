@@ -6,6 +6,14 @@ name = "pypi"
 [packages]
 flask = "*"
 werkzeug = "*"
+numpy = "*"
+matplotlib = "*"
+tensorflow = "*"
+opencv-python = "*"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
+opencv-contrib-python = "*"
 
 [dev-packages]
 
