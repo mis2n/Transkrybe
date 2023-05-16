@@ -59,7 +59,11 @@ def uploader():
         f.save(full_path)
 
         #segs = Segment(full_path)
+        segs = 'temporary placeholder for segmentation data from yolo'
 
         return render_template('segmentation.html', relpath=rel_path, ydata=segs)
     else:
         return redirect(url_for('home'))
+
+if __name__=='__main__':
+    app.run(debug = True)

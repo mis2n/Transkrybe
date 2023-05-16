@@ -151,7 +151,6 @@ b4.addEventListener('click', () => {
         let currid = parseInt(currobj['id'][1]);
         canvas.remove(currobj);
         rects.splice(currid, 1);
-        console.log(rects);
         }
     }
     toggle = 0;
