@@ -3,7 +3,7 @@ var rects = [];
 const oplow = 0.2;
 const ophigh = 100;
 const canvasPad = 10;
-const strokeW = 2;
+const strokeW = 3;
 var toggle = 0;
 
 var colorSpace = ['#3783FF', '#4DE94C', '#FF8C00', '#FFEE00', '#F60000'];
@@ -35,7 +35,7 @@ function makeRect(l, r, w, h, c, idn) {
             }
             else {
                 rects[j].set('opacity', ophigh);
-                rects[j].set('strokeWidth', 0.5);
+                rects[j].set('strokeWidth', strokeW);
             }
             j++;
         }
