@@ -3,7 +3,7 @@ var rects = [];
 const oplow = 0.2;
 const ophigh = 100;
 const canvasPad = 10;
-const strokeW = 1;
+const strokeW = 2;
 var toggle = 0;
 
 var colorSpace = ['#3783FF', '#4DE94C', '#FF8C00', '#FFEE00', '#F60000'];
@@ -46,12 +46,10 @@ canvas.requestRenderAll();
 }
 
 var img = document.createElement('img');
-img.src = '/' + userimage;
+img.src = 'static/data/current.png';
 
-import datafile from '/static/data/TODAY_matt_test.json' assert { type: "json"};
+import datafile from './data/current.json' assert { type: "json"};
 let data = Object.values(datafile);
-
-console.log(yolodata);
 
 var width = data[1];
 var height = data[2];

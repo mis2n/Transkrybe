@@ -1,3 +1,8 @@
+# fix windows registry stuff
+import mimetypes
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('text/css', '.css')
+
 from flask import Flask, render_template, request, redirect, url_for, flash
 import json
 import os.path
@@ -16,7 +21,7 @@ import matplotlib.pyplot as plt
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 print("Loading model...")
-#seg = torch.hub.load('ultralytics/yolov5', 'custom', path='/static/models/best_yolo.pt')
+seg = torch.hub.load('ultralytics/yolov5', 'custom', path='static/models/best_yolo.pt')
 print("Model loaded.")
 
 def Segment(img_path):
@@ -34,7 +39,8 @@ def Segment(img_path):
     df["xc"] = df["xc"].astype(int)
     df["yc"] = df["yc"].astype(int)
     df = df.drop(['name', 'class', 'xmin', 'ymin', 'xmax', 'ymax'], axis=1)
-    segdat = df.to_json()
+    segdat = df.to_json("static/data/current.json")
+    print("saved to Desktop")
     return segdat
 
 app = Flask(__name__)
@@ -51,17 +57,18 @@ def uploader():
         # dt = str(datetime.datetime.now())
         # dt = dt.split(".")[0]
         # dt = re.sub('[^a-zA-Z0-9\n\.]', '_', dt)
-        dt = "TODAY"
-        full_name = dt + '_' + secure_filename(f.filename)
-        full_path = '/mnt/c/Users/matth/Desktop/new_app/static/uploads/' + full_name
-        rel_path = 'static/uploads/' + full_name
-        segs = 'temporary placeholder for segmentation data from yolo'
+        #dt = "TODAY"
+        #full_name = secure_filename(f.filename)
+        #full_path = 'C:/Users/matth/Desktop/new_app/static/uploads/' + full_name
+        #rel_path = 'static/uploads/' + full_name
+        #segs = 'temporary placeholder for segmentation data from yolo'
+        full_path = "static/data/current.png"
         f.save(full_path)
+        segs = Segment(full_path)
+        
 
-        #segs = Segment(full_path)
-        segs = 'temporary placeholder for segmentation data from yolo'
-
-        return render_template('segmentation.html', relpath=rel_path, ydata=segs)
+        return render_template('segmentation.html',)
+        #return redirect('/segmentation.html')
     else:
         return redirect(url_for('home'))
 
