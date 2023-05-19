@@ -12,6 +12,11 @@
     <script src="/static/rect_sandbox.js" type="module"></script>
     <script src="/static/lib/fabric.min.js"></script>
 
+    <script>
+        var fragid = "{{ fid }}";
+        var imgext = "{{ imgtype }}";
+    </script>
+
     <h1 class="main_title">Transkrybe Application</h1>
 
     <div class="control">
@@ -35,7 +40,7 @@
         <br>
     </div>
     <div class="viewer">
-        <h1 class="div_title">Viewer</h1>
+        <!-- <h1 class="div_title">Viewer</h1> -->
         <canvas id="canvas"></canvas>
     </div>
 

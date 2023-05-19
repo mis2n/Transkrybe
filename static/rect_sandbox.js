@@ -3,12 +3,13 @@ var rects = [];
 const oplow = 0.2;
 const ophigh = 100;
 const canvasPad = 10;
-const strokeW = 3;
+const strokeH = 3;
+const strokeL = 1;
 var toggle = 0;
 
 var colorSpace = ['#3783FF', '#4DE94C', '#FF8C00', '#FFEE00', '#F60000'];
 
-function makeRect(l, r, w, h, c, idn) {
+function makeRect(l, r, w, h, c, idn, sw) {
     let cid = 'r' + idn;
     var rect = new fabric.Rect({
         left: l,
@@ -18,7 +19,7 @@ function makeRect(l, r, w, h, c, idn) {
         fill: '',
         opacity: 100,
         stroke: c,
-        strokeWidth: strokeW,
+        strokeWidth: sw,
         selectable: true,
         lockRotation: true, // disable rotation
         id: cid
@@ -35,18 +36,18 @@ function makeRect(l, r, w, h, c, idn) {
             }
             else {
                 rects[j].set('opacity', ophigh);
-                rects[j].set('strokeWidth', strokeW);
+                rects[j].set('strokeWidth', strokeL);
             }
             j++;
         }
-});
-rects.push(rect);
-canvas.add(rect);
-canvas.requestRenderAll();
+    });
+    rects.push(rect);
+    canvas.add(rect);
+    canvas.requestRenderAll();
 }
 
 var img = document.createElement('img');
-img.src = 'static/data/current.png';
+img.src = 'static/data/current' + imgext;
 
 import datafile from './data/current.json' assert { type: "json"};
 let data = Object.values(datafile);
@@ -67,6 +68,12 @@ function countProperties(obj) {
     }
 
     return count;
+}
+
+var averager = 0;
+for (let m=0; m<xc.length; m++) {
+    averager += xc[m];
+    averager += yc[m];
 }
 
 let l = countProperties(xc);
@@ -97,7 +104,7 @@ for (let i=0; i<l; i++) {
     else if (yconf[i] >= 0.5) {var rcolor = colorSpace[2];}
     else if (yconf[i] >= 0.25) {var rcolor = colorSpace[3];}
     else {var rcolor = colorSpace[4];}
-    makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, 'i');
+    makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, 'i', strokeH);
 }
 
 var b1 = document.getElementById("b1");
@@ -124,7 +131,7 @@ b2.addEventListener('click', () => {
     let j = 0;
     while (j < rects.length) {
         rects[j].set('opacity', ophigh);
-        rects[j].set('strokeWidth', strokeW);
+        rects[j].set('strokeWidth', strokeH);
         j++;
     }
     toggle = 0;
@@ -133,7 +140,8 @@ b2.addEventListener('click', () => {
 
 b3.addEventListener('click', () => {
     let i = rects.length;
-    makeRect(25, 25, 20, 20, colorSpace[0], i);
+    makeRect(width[0], height[0], width[0], height[0], colorSpace[0], i, strokeH);
+    canvas.requestRenderAll();
 });
 
 b4.addEventListener('click', () => {

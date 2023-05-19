@@ -5,10 +5,10 @@ mimetypes.add_type('text/css', '.css')
 
 from flask import Flask, render_template, request, redirect, url_for, flash
 import json
+import os
 import os.path
 from werkzeug.utils import secure_filename
-import datetime
-import re
+import time
 
 import torch
 import numpy as np
@@ -54,20 +54,16 @@ def home():
 def uploader():
     if request.method == 'POST':
         f = request.files['file']
-        # dt = str(datetime.datetime.now())
-        # dt = dt.split(".")[0]
-        # dt = re.sub('[^a-zA-Z0-9\n\.]', '_', dt)
-        #dt = "TODAY"
-        #full_name = secure_filename(f.filename)
-        #full_path = 'C:/Users/matth/Desktop/new_app/static/uploads/' + full_name
-        #rel_path = 'static/uploads/' + full_name
-        #segs = 'temporary placeholder for segmentation data from yolo'
-        full_path = "static/data/current.png"
-        f.save(full_path)
-        segs = Segment(full_path)
-        
+        dt = time.strftime('%Y%m%d_%H%M%S_')
+        full_name = dt + secure_filename(f.filename)
+        fragid = full_name[:-4]
+        imgext = full_name[-4:]
+        full_path = "static/data/current" + imgext
 
-        return render_template('segmentation.html',)
+        f.save(full_path)
+        seg = Segment(full_path)
+        
+        return render_template('segmentation.html', fid=fragid, imgtype=imgext)
         #return redirect('/segmentation.html')
     else:
         return redirect(url_for('home'))
