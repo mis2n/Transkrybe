@@ -43,7 +43,7 @@ function makeRect(l, r, w, h, c, idn, sw) {
     });
     rects.push(rect);
     canvas.add(rect);
-    canvas.requestRenderAll();
+    // canvas.requestRenderAll();
 }
 
 var img = document.createElement('img');
@@ -94,10 +94,10 @@ const canvas = new fabric.Canvas('canvas', {
     backgroundImage: imgInstance,
     width: canvw+canvasPad,
     height: canvh+canvasPad,
-    backgroundColor: rgb(32, 29, 28),
+    backgroundcolor: 'grey',
 });
 
-canvas.requestRenderAll();
+// canvas.requestRenderAll();
 
 for (let i=0; i<l; i++) {
     if (yconf[i] >= 0.75) {var rcolor = colorSpace[1];}
@@ -113,6 +113,8 @@ var b3 = document.getElementById("b3");
 var b4 = document.getElementById("b4");
 var b5 = document.getElementById("b5");
 var b6 = document.getElementById("b6");
+
+
 
 b1.addEventListener('click', () => {
     // for (let i=0; i<rects.length; i++) {
@@ -186,5 +188,5 @@ b6.addEventListener('click', () => {
 });
 
 window.onload=function(){
-    document.getElementById("b2").click();
+    canvas.requestRenderAll();
   };
