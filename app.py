@@ -29,7 +29,7 @@ def Segment(img_path):
     results = seg(im, size=640)
     df = results.pandas().xyxy[0]
     df.rename(columns = {'confidence':'yolo_confidence'}, inplace = True)
-    df = df[df['yolo_confidence'] > 0.5]
+    #df = df[df['yolo_confidence'] > 0.5]
     df["width"] = abs(df["xmax"] - df["xmin"])
     df["height"] = abs(df["ymax"] - df["ymin"])
     df["xc"] = df["xmin"] + (df["width"] / 2)
@@ -40,6 +40,7 @@ def Segment(img_path):
     df["yc"] = df["yc"].astype(int)
     df = df.drop(['name', 'class', 'xmin', 'ymin', 'xmax', 'ymax'], axis=1)
     segdat = df.to_json("static/data/current.json")
+    segdat = df.to_csv("static/data/current.csv")
     print("saved to Desktop")
     return segdat
 

@@ -26,7 +26,7 @@ function makeRect(l, r, w, h, c, idn, sw) {
     });
     rect.setControlsVisibility({ mtr: false}); // hide rotation control
     rect.on("selected", (element) => {
-        let dex = rects.findIndex(obj => {
+        var dex = rects.findIndex(obj => {
             return obj.id == element.target.id;
         });
         let j = 0;
