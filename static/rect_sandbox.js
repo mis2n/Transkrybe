@@ -94,7 +94,7 @@ const canvas = new fabric.Canvas('canvas', {
     backgroundImage: imgInstance,
     width: canvw+canvasPad,
     height: canvh+canvasPad,
-    backgroundColor: 'gray',
+    backgroundColor: rgb(32, 29, 28),
 });
 
 canvas.requestRenderAll();

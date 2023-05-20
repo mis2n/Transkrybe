@@ -1,5 +1,14 @@
+/* STYLE COLORSPACE
+
+#524948 - wenge: dark grayish brown
+#57467B - ultra violet
+#7CB4B8 - verdigris: pastel blue-green
+#70F8BA - aquamarine
+#CAFE48 - lime */
+
 body {
-  background-color: lightgray;
+  background-color: #7CB4B8;
+  color: #524948
 }
 
 .control {
@@ -8,7 +17,6 @@ body {
     flex-direction: column;
     font-size: 12px;
     text-align: center;
-    color: black;
     border: 2px solid rgb(89, 90, 89);
     padding: 2px;
     width: 300px;
@@ -20,7 +28,6 @@ body {
     flex-direction: column;
     font-size: 12px;
     text-align: left;
-    color: black;
     border: 2px solid rgb(89, 90, 89);
     padding: 2px;
     width: 100;
@@ -28,25 +35,29 @@ body {
 }
 
 .button {
-  color: black;
+  color: #57467b;
+  background-color: #cafe48;
   text-align: center;
   font-size: 32px;
+  border-radius: 12px;
+  
 }
 
 .button:hover {
-  background-color: darkgray;
-  color: white;
+  box-shadow: 0 8px 16px 0 rgba(52,52,52,0.2), 0 6px 20px 0 rgba(52,52,52,0.19);
+  background-color: #524948;
+  color: #CAFE48;
 }
 
 .main_title {
-  color: black;
   text-align: center;
+  font-family: papyrus, fantasy;
   font-size: 72px;
 }
 
 .div_title {
-  color: black;
   text-align: center;
+  font-family: papyrus, fantasy;
   font-size: 56px;
 } 
 
@@ -54,7 +65,7 @@ body {
   margin: 0;
   position: absolute;
   top: 25%;
-  left: 40%;
+  left: 35%;
   -ms-transform: translateY(-25%, -40%);
   transform: translateY(-25%, -40%);
 }
