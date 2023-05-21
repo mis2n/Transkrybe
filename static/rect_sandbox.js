@@ -115,6 +115,7 @@ var b3 = document.getElementById("b3");
 var b4 = document.getElementById("b4");
 var b5 = document.getElementById("b5");
 var b6 = document.getElementById("b6");
+var b7 = document.getElementById("b7");
 
 // Listener for button 1: Update
 b1.addEventListener('click', () => {
@@ -174,7 +175,7 @@ b5.addEventListener('click', () => {
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 });
 
-// Listener for button 6: Toggle through boxes
+// Listener for button 6: Toggle through boxes: next box
 b6.addEventListener('click', () => {
     console.log(toggle);
     for (let t=0; t<rects.length; t++) {
@@ -190,6 +191,25 @@ b6.addEventListener('click', () => {
     else {
         toggle = 0;
     }
+});
+
+// Listener for button 6: Toggle through boxes: previous box
+b7.addEventListener('click', () => {
+    if (toggle > 0) {
+        toggle = toggle - 1;
+    }
+    else {
+        toggle = rects.length-1;
+    }
+    console.log(toggle);
+    for (let t=0; t<rects.length; t++) {
+        if (t != toggle) {
+            rects[t].set('opacity', oplow);
+        }
+    }
+    rects[toggle].set('opacity', ophigh);
+    canvas.requestRenderAll();
+    
 });
 
 window.onload=function(){
