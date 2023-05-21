@@ -66,8 +66,8 @@ body {
   position: absolute;
   top: 25%;
   left: 35%;
-  -ms-transform: translateY(-25%, -40%);
-  transform: translateY(-25%, -40%);
+  /* -ms-transform: translateY(-25%, -35%);
+  transform: translateY(-25%, -35%); */
 }
 
 .container {
