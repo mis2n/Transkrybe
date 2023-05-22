@@ -17,12 +17,23 @@ from PIL import Image
 from PIL import ImageFile
 import matplotlib.pyplot as plt
 
+import tensorflow as tf
+from tensorflow.keras import Model
+from tensorflow.keras import layers
+from tensorflow.keras.models import load_model
+
 # Allows PIL to load truncated images
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-print("Loading model...")
+# Greek Character classes
+classes = ['Alpha', 'Beta', 'Chi', 'Delta', 'Epsilon', 'Eta', 'Gamma', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Omega', 'Omicron', 'Phi', 'Pi', 'Psi' ,'Rho', 'LunateSigma', 'Tau', 'Theta', 'Upsilon', 'Xi', 'Zeta']
+
+
+# Loading YOLO v5 model
 seg = torch.hub.load('ultralytics/yolov5', 'custom', path='static/models/best_yolo.pt')
-print("Model loaded.")
+
+# Loading ResNet model trained on AL-ALL version 2a
+infer = load_model("static/models/alv2_cxe")
 
 def Segment(img_path):
     im = Image.open(img_path)
