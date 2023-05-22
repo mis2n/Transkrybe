@@ -6,46 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TransKryb Application</title>
+    <script src="/static/circ_sandbox.js" type="module"></script>
+    <script src="/static/lib/fabric.min.js"></script>
 </head>
 
 <body>
-    <script src="/static/rect_sandbox.js" type="module"></script>
-    <script src="/static/lib/fabric.min.js"></script>
-
-    <script>
-        var fragid = "{{ fid }}";
-        var imgext = "{{ imgtype }}";
-    </script>
-
     <h1 class="main_title">Transkrybe</h1>
 
-    <div class="control">
-        <img src="/static/images/colorKey.png">
-    </div>
+    <div class="container">
+        <div class="ldiv" id="cdiv1">
+            <h1 class="div_title_left">Line Finder Output</h1>
+            <canvas id="canvas"></canvas>
+        </div>
 
-    <div class="control">
-        <h1 class="div_title">Control Panel</h1>
-        <button class="button" id="b1">Update</button><!--modify: send to line-ification> -->
-        <br>
-        <button class="button" id="b5">Log Array</button>
-        <br>
-        <button class="button" id="b3">Create New Box</button>
-        <br>
-        <button class="button" id="b4">Delete Active Box</button>
-        <br>
-        <button class="button" id="b6">Cycle Boxes: Next</button>
-        <br>
-        <button class="button" id="b7">Cycle Boxes: Last</button>
-        <br>
-        <button class="button" id="b2">Show All</button>
-        <br>
+        <div class="rdiv" id="cdiv2">
+            <h1 class="div_title_left">Text Transcription Placeholder</h1>
+            <canvas id="canvas2"></canvas>
+        </div>
     </div>
-    <div class="viewer">
-        <!-- <h1 class="div_title">Viewer</h1> -->
-        <canvas id="canvas"></canvas>
-    </div>
-
-
 
     </body>
 </body>

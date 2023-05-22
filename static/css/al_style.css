@@ -30,8 +30,15 @@ body {
     text-align: left;
     border: 2px solid rgb(89, 90, 89);
     padding: 2px;
-    width: 100;
-    height: 100;
+}
+
+.viewer2 {
+  display: flex;
+  flex-direction: column;
+  /* font-size: 12px;
+  text-align: left; */
+  border: 2px solid rgb(89, 90, 89);
+  padding: 2px;
 }
 
 .button {
@@ -61,6 +68,12 @@ body {
   font-size: 56px;
 } 
 
+.div_title_left {
+  text-align: left;
+  font-family: papyrus, fantasy;
+  font-size: 56px;
+} 
+
 .upload_div {
   margin: 0;
   position: absolute;
@@ -71,6 +84,14 @@ body {
 }
 
 .container {
-  height: 200px;
-  position: relative;
+  width: 100%;
+}
+
+.ldiv {
+  width: 50%;
+  float: left;
+}
+
+.rdiv {
+  margin-left: 50%;
 }
