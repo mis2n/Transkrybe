@@ -7,7 +7,23 @@ const canvasPad = 10;
 const strokeW = 3;
 var toggle = 0;
 
+//Temporary data for demo and testing
+// *********************************************************************
+
+const chardata = [[83, 76],
+                [18, 34, 26, 86, 31, 8, 5],
+                [9, 66, 89, 21, 46, 52, 1, 7, 42, 6, 33, 80, 84, 78],
+                [68, 55, 81, 96, 28, 54, 17, 56, 44, 57, 58, 29, 19, 79],
+                [49, 3, 61, 30, 4, 59, 10, 47, 60, 15],
+                [12, 0, 32, 43, 69, 62, 53, 20, 24, 74, 45],
+                [22, 14, 72, 88, 11, 71, 37, 97, 73, 51, 36],
+                [63, 2, 39, 35, 82, 48, 41, 65, 16, 64, 77, 50, 38, 100],
+                [98, 25, 70, 23, 27, 13, 40, 67]];
+
+// *********************************************************************
+
 var colorSpace = ['#3783FF', '#4DE94C', '#FF8C00', '#FFEE00', '#F60000'];
+var lineColors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 
 // create and display canvas with image as background
 var img = document.createElement('img');
@@ -62,8 +78,8 @@ function makeCircs(cx, cy, w, h, c, idn) {
 
     var dot = new fabric.Circle({
         radius: crad / 40, //5% of 1/2 the average of width and height
-        fill: 'red',
-        stroke: 'red',
+        fill: c,
+        stroke: c,
         left: cx - drad,
         top: cy - drad,
         strokeWidth: 3
@@ -146,11 +162,26 @@ function countProperties(obj) {
 
 let l = countProperties(xc);
 
-// create circle and dot in centroid (and rectangle if uncommented) for each character
-for (let i=0; i<l; i++) {
-    var rcolor = 'blue';
-    // makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, i);
-    makeCircs(xc[i], yc[i], width[i], height[i], 'red', i);
+// // create circle and dot in centroid (and rectangle if uncommented) for each character
+// for (let i=0; i<l; i++) {
+//     var rcolor = 'blue';
+//     // makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, i);
+//     makeCircs(xc[i], yc[i], width[i], height[i], 'red', i);
+// }
+
+var ctog = 0
+for (let i=0; i<chardata.length; i++) {
+    let rcolor = lineColors[ctog];
+    if (ctog < lineColors.length-1) {
+        ctog++;
+    }
+    else {
+        ctog = 0;
+    }
+    for (let j=0; j<chardata[i].length; j++) {
+        let ldex = chardata[i][j];
+        makeCircs(xc[ldex], yc[ldex], width[ldex], height[ldex], rcolor, ldex);
+    }
 }
 
 window.onload=function(){

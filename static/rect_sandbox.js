@@ -66,7 +66,7 @@ function makeRect(l, r, w, h, c, idn) {
             }
             j++;
         }
-    console.log(dex)
+    //console.log(dex)
 });
 rects.push(rect);
 canvas.add(rect);
@@ -139,7 +139,7 @@ b2.addEventListener('click', () => {
         rects[j].set('strokeWidth', strokeW);
         j++;
     }
-    toggle = 0;
+    // toggle = 0;
     canvas.requestRenderAll();
 });
 
@@ -165,7 +165,8 @@ b4.addEventListener('click', () => {
         rects.splice(currid, 1);
         }
     }
-    toggle = 0;
+    // toggle = 0;
+    console.log("Removed: ", currobj['id']);
     document.getElementById("b2").click();
 });
 
@@ -178,6 +179,7 @@ b5.addEventListener('click', () => {
 // Listener for button 6: Toggle through boxes: next box
 b6.addEventListener('click', () => {
     console.log(toggle);
+    canvas.setActiveObject(rects[toggle]);
     for (let t=0; t<rects.length; t++) {
         if (t != toggle) {
             rects[t].set('opacity', oplow);
@@ -207,6 +209,7 @@ b7.addEventListener('click', () => {
             rects[t].set('opacity', oplow);
         }
     }
+    canvas.setActiveObject(rects[toggle]);
     rects[toggle].set('opacity', ophigh);
     canvas.requestRenderAll();
     
