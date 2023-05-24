@@ -62,6 +62,12 @@ body {
   font-size: 72px;
 }
 
+canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+}
+
 .div_title {
   text-align: center;
   font-family: papyrus, fantasy;

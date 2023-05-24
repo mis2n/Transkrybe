@@ -49,13 +49,28 @@ const canvas = new fabric.Canvas('canvas', {
 });
 canvas.requestRenderAll();
 
-const canvas2 = new fabric.Canvas('canvas2', {
-    backgroundImage: imgInstance,
-    width: canvw+canvasPad,
-    height: canvh+canvasPad,
-    backgroundcolor: 'grey',
-});
-canvas.requestRenderAll();
+//**********************************************************************************
+// var img2 = document.createElement('img2');
+// img2.src = '/static/line_output.jpg'
+
+// var imgInstance2 = new fabric.Image(img2, {
+//     lockMovementX: true,
+//     lockMovementY: true,
+//     width: canvw,
+//     height: canvh,
+//     left: canvasPad/2,
+//     top: canvasPad/2,
+// });
+
+// const canvas2 = new fabric.Canvas('canvas2', {
+//     backgroundImage: imgInstance2,
+//     width: canvw+canvasPad,
+//     height: canvh+canvasPad,
+//     backgroundcolor: 'grey',
+// });
+
+// canvas2.requestRenderAll();
+//**********************************************************************************
 
 // Function to dynamically create circles
 function makeCircs(cx, cy, w, h, c, idn) {
