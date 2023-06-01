@@ -46,6 +46,8 @@ const canvas = new fabric.Canvas('canvas', {
     width: canvw+canvasPad,
     height: canvh+canvasPad,
     backgroundcolor: 'grey',
+    left: '100%',
+
 });
 canvas.requestRenderAll();
 

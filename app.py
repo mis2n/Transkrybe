@@ -80,5 +80,12 @@ def uploader():
     else:
         return redirect(url_for('home'))
 
+@app.route('/linefinder', methods=['GET', 'POST'])
+def linefinder():
+    return render_template('circ_sandbox.html')
+
+@app.route('/inference', methods=['GET', 'POST'])
+def inference():
+    return render_template('inference.html')
 if __name__=='__main__':
     app.run(debug = True)

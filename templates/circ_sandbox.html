@@ -8,16 +8,19 @@
     <title>TransKryb Application</title>
     <script src="/static/circ_sandbox.js" type="module"></script>
     <script src="/static/lib/fabric.min.js"></script>
+
 </head>
 
-<body>
-    <h1 class="main_title">T   ranskrybe</h1>
+<body style="display:flex; flex-direction:column; align-items:center;">
+    <h1 class="main_title">Transkrybe</h1>
 
-        <div style="width: 100%; text-align: center; ">
+        <div style="margin: auto">
             <h1 class="div_title">Line Finder</h1>
-            <canvas id="canvas" style="position: absolute;top:0; bottom: 0; left: 0; right: 0; margin:auto;"></canvas>
+            <canvas id="canvas"></canvas>
         </div>
-
+        <form action="inference" method="post" enctype="multipart/form-data">
+            <input type="submit" value="Run Inference" class="button"> 
+        </form>
         <!-- <div class="rdiv" id="cdiv2">
             <h1 class="div_title_left">Text Transcription Placeholder</h1>
             <canvas id="canvas2"></canvas>
