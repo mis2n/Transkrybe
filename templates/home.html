@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TransKribe Application</title>
 </head>
-
-<h1 class="main_title">Transkrybe Application</h1>
-<br><br><br><br><br><br><br><br><br>
-<body> 
+<div style="display:flex; flex-direction:column; align-items:center;">
+    <h1 class="main_title">Transkrybe A.I.</h1>
+    <img src="../static/images/tlogo.png" style="width: 10%">
+</div>
+<br><br><br><br>
+<body style="display:flex; flex-direction:column; align-items:center;"> 
     <h1 class="div_title">Upload Image File</h1>
 <div class="container">
     
-    <div class="upload_div">
+    <div style="display:flex; flex-direction:column; align-items:center;">
     <form action="segmentation" method="post" enctype="multipart/form-data">
         <input type="file" name="file" value="" required  class="button">
         <br><br>
