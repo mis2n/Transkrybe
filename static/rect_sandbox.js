@@ -116,6 +116,7 @@ var b4 = document.getElementById("b4");
 var b5 = document.getElementById("b5");
 var b6 = document.getElementById("b6");
 var b7 = document.getElementById("b7");
+var b8 = document.getElementById("b8");
 
 // Listener for button 1: Update
 b1.addEventListener('click', () => {
@@ -172,7 +173,7 @@ b4.addEventListener('click', () => {
 
 // Listener for button 5: Print rects array to console
 b5.addEventListener('click', () => {
-    console.log(rects, "Array Length:", rects.length);
+    console.log(rects, "Array Length:", rects.length, typeof rects);
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 });
 
@@ -215,6 +216,20 @@ b7.addEventListener('click', () => {
     
 });
 
+function sendToFlask() {
+    // GOTTA GET THE ACTUAL DATA FROM THE OBJECTS, THEN JSONIFY.
+    const request = new XMLHttpRequest()
+    request.open('POST', `/linefinder/${JSON.stringify(rects)}`)
+    request.send();
+};
+
+
+b8.addEventListener('click', () => {
+    sendToFlask();
+    
+});
 window.onload=function(){
     canvas.requestRenderAll();
   };
+
+  
