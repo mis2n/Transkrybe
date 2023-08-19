@@ -217,9 +217,21 @@ b7.addEventListener('click', () => {
 });
 
 function sendToFlask() {
+    const updatedLocs = []
+    for (let i=0; i<rects.length; i++) {
+        var _left = rects[i].left;
+         var _top = rects[i].top;
+         var _width = rects[i].getScaledWidth()-rects[i].strokeWidth;
+         var _height = rects[i].getScaledHeight()-rects[i].strokeWidth;
+         var cbox = [_left, _top, _width, _height];
+         updatedLocs.push(cbox);
+         
+    }
+    //console.log(updatedLocs);
+
     // GOTTA GET THE ACTUAL DATA FROM THE OBJECTS, THEN JSONIFY.
     const request = new XMLHttpRequest()
-    request.open('POST', `/linefinder/${JSON.stringify(rects)}`)
+    request.open('POST', `/linefinder/${JSON.stringify(updatedLocs)}`)
     request.send();
 };
 

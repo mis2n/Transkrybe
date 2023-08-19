@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/al_style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransKryb Application</title>
+    <script src="/static/circ_sandbox.js" type="module"></script>
+    <script src="/static/lib/fabric.min.js"></script>
+    <h1 class="main_title"><img src="../static/images/tlogo.png" style="width: 2%">Transkrybe A.I.</h1>
+</head>
+
+<body style="display:flex; flex-direction:column; align-items:center;">
+    <!-- <div>
+        <h1 class="main_title"><img src="../static/images/tlogo.png" style="width: 2%">Transkrybe A.I.</h1>
+    </div> -->
+        <div style="margin: auto">
+            <!-- <h1 class="div_title">Line Finder</h1> -->
+            <canvas id="canvas"></canvas>
+        </div>
+        <form action="inference" method="post" enctype="multipart/form-data">
+            <input type="submit" value="Run Inference" class="button"> 
+        </form>
+        <!-- <div class="rdiv" id="cdiv2">
+            <h1 class="div_title_left">Text Transcription Placeholder</h1>
+            <canvas id="canvas2"></canvas>
+        </div> -->
+
+
+    </body>
+</body>
+</html>

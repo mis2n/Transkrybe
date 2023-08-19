@@ -84,22 +84,21 @@ def uploader():
 
 
 
-@app.route('/linefinder/<string:userinfo>', methods=['POST'])
+@app.route('/linefinder/<string:userinfo>', methods=['GET', 'POST'])
 def linefinder(userinfo):
     readin=userinfo
     with open('static/outdata.json', 'w') as f:
         f.write(readin)
         f.close()
-    return render_template('circ_sandbox.html')
-
     
-
-
+    return render_template('/linefinder.html')
 
 
 
 @app.route('/inference', methods=['GET', 'POST'])
 def inference():
     return render_template('inference.html')
+
+
 if __name__=='__main__':
     app.run(debug = True)
