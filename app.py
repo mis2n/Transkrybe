@@ -117,8 +117,8 @@ def inferFrag(df):
     conf = []
     x = []
     for i in range(len(df)):
-        cropped = fragment[(df['ymin'][i]):(df['ymax'][i]), (df['xmin'][i]):(df['xmax'][i])]
-        #cropped = fragment[(int(df['yc'][i] - (df['height'][i] / 2))):(int(df['yc'][i] + (df['height'][i] / 2))), (int(df['xc'][i] - (df['width'][i] / 2))):(int(df['xc'][i] + (df['width'][i] / 2)))]
+        #cropped = fragment[(df['ymin'][i]):(df['ymax'][i]), (df['xmin'][i]):(df['xmax'][i])] ### DON'T USE THIS VERSION, X/Y MIN/MAX NOT CALCULATED CORRECTLY IN DATA FILES ###
+        cropped = fragment[(int(df['yc'][i] - (df['height'][i] / 2))):(int(df['yc'][i] + (df['height'][i] / 2))), (int(df['xc'][i] - (df['width'][i] / 2))):(int(df['xc'][i] + (df['width'][i] / 2)))]
         res = cv2.resize(cropped, (70, 70), interpolation=cv2.INTER_AREA)
         x = []
         x.append(res)
