@@ -35,11 +35,16 @@ const canvas = new fabric.Canvas('canvas', {
 canvas.requestRenderAll();
 
 // Function to dynamically create rectangles
-function makeRect(l, r, w, h, c, idn) {
+function makeRect(rxc, ryc, rxmax, rymax, l, t, w, h, ryconf, c, idn) {
     let cid = 'r' + idn;
     var rect = new fabric.Rect({
-        left: l,
-        top: r,
+        yconf: ryconf,
+        xc: rxc,
+        yc: ryc,
+        xmax: rxmax,
+        ymax: rymax,
+        left: l, //xmin
+        top: t, //ymin
         width: w,
         height: h,
         fill: '',
@@ -74,15 +79,19 @@ canvas.requestRenderAll();
 }
 
 // import data from json file
-import datafile from './data/current.json' assert { type: "json"};
+import datafile from './data/yolodata.json' assert { type: "json"};
 let data = Object.values(datafile);
 
 // parse data into arrays
-var width = data[1];
-var height = data[2];
-var xc = data[3];
-var yc = data[4];
-var yconf = data[0];
+var xmin = data[0];
+var ymin = data[1];
+var xmax = data[2];
+var ymax = data[3];
+var width = data[5];
+var height = data[6];
+var xc = data[7];
+var yc = data[8];
+var yconf = data[4];
 var sw = screen.width / 2;
 
 // count number of characters identified by yolo
@@ -105,7 +114,8 @@ for (let i=0; i<l; i++) {
     else if (yconf[i] >= 0.5) {var rcolor = colorSpace[2];}
     else if (yconf[i] >= 0.25) {var rcolor = colorSpace[3];}
     else {var rcolor = colorSpace[4];}
-    makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, i);
+    //makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, i);
+    makeRect(xc[i], yc[i], xmax[i], ymax[i], xmin[i], ymin[i], width[i], height[i], yconf[i], rcolor, i);
 }
 
 // Initialize buttons for listeners
@@ -219,11 +229,16 @@ b7.addEventListener('click', () => {
 function sendToFlask() {
     const updatedLocs = []
     for (let i=0; i<rects.length; i++) {
-        var _left = rects[i].left;
-         var _top = rects[i].top;
+        var _left = rects[i].left;//xmin
+         var _top = rects[i].top;//ymim
+         var _xmax = rects[i].xmax;
+         var _ymax = rects[i].ymax;
+         var _yconf = rects[i].yconf;
+         var _xc = rects[i].xc;
+         var _yc = rects[i].yc;
          var _width = rects[i].getScaledWidth()-rects[i].strokeWidth;
          var _height = rects[i].getScaledHeight()-rects[i].strokeWidth;
-         var cbox = [_left, _top, _width, _height];
+         var cbox = [_left, _top, _xmax, _ymax, _xc, _yc, _width, _height, _yconf];
          updatedLocs.push(cbox);
          
     }

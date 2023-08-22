@@ -13,20 +13,24 @@ from scipy.spatial.transform import Rotation as R
 from scipy.signal import find_peaks
 from sklearn.metrics import silhouette_samples, silhouette_score
 from sklearn.neighbors import NearestNeighbors
-import cv2
+# import cv2
+from PIL import Image
+from PIL import ImageFile
 from os import listdir
+# import torch
+# import tensorflow as tf
+# from tensorflow.keras import Model
+# from tensorflow.keras import layers
+# from tensorflow.keras.models import load_model
 
-import tensorflow as tf
-from tensorflow.keras import Model
-from tensorflow.keras import layers
-from tensorflow.keras.models import load_model
+# # Ancient Lives classes
+# classes = ['Alpha', 'Beta', 'Chi', 'Delta', 'Epsilon', 'Eta', 'Gamma', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Omega', 'Omicron', 'Phi', 'Pi', 'Psi' ,'Rho', 'LunateSigma', 'Tau', 'Theta', 'Upsilon', 'Xi', 'Zeta']
+# colorspace = [(55, 131, 255), (77, 233, 76), (255, 140, 0), (255, 238, 0), (246, 0, 0)]
+# thickness = 3
 
-# Ancient Lives classes
-classes = ['Alpha', 'Beta', 'Chi', 'Delta', 'Epsilon', 'Eta', 'Gamma', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Omega', 'Omicron', 'Phi', 'Pi', 'Psi' ,'Rho', 'LunateSigma', 'Tau', 'Theta', 'Upsilon', 'Xi', 'Zeta']
-
-# Loading ResNet model trained on AL-ALL version 2a
-infer = load_model("static/models/alv2_cxe")
-
+# # Loading ResNet model trained on AL-ALL version 2a
+# infer = load_model("static/models/alv2_cxe")
+# seg = torch.hub.load('ultralytics/yolov5', 'custom', path='static/models/best_yolo.pt')
 #-------------------------------------------------------------------------
 #-------------------------------------------------------------------------
 
@@ -485,101 +489,107 @@ def EvaluateSegmentation_OG( X, rad, lines, nLines ):
 #-------------------------------------------------------------------------
 #-------------------------------------------------------------------------
 
-def makeLines():
-    df = pd.read_json('static/data/outdata.json')
-    df.columns = ['lefts', 'tops', 'widths', 'heights']
-    # convert to 'xc', 'yc', 'width', 'height', rebuild dataframe
-    left = list(df['lefts'])
-    top = list(df['tops'])
-    width = list(df['widths'])
-    height = list(df['heights'])
-    xc = []
-    yc = []
-    for i in range(len(left)):
-        currxc = int(left[i] + (width[i] / 2))
-        curryc = int(top[i] + (height[i] / 2))
-        xc.append(currxc)
-        yc.append(curryc)
-    df2 = pd.DataFrame(list(zip(xc, yc, width, height)), columns=['xc', 'yc', 'width', 'height'])
-    xc = df2['xc']
-    yc = df2['yc']
-    w = df2['width']
-    h = df2['height']
-    lines, X, rad, df, nPts = SegmentLines( df2 )
-    #print(lines)
-    #print("****************")
-    lines = list(reversed(lines))
-    for i in range(len(lines)):
-        lines[i] = list(reversed(lines[i]))
-    #print(lines)
-    nxc = []
-    nyc = []
-    nw = []
-    nh = []
-    nl = []
-    for i in range(len(lines)):
-        for j in range(len(lines[i])):
-            nxc.append(xc[lines[i][j]])
-            nyc.append(yc[lines[i][j]])
-            nw.append(w[lines[i][j]])
-            nh.append(h[lines[i][j]])
-            nl.append(i)
-    df3 = pd.DataFrame(list(zip(nxc, nyc, nw, nh, nl)), columns=['xc', 'yc', 'width', 'height', 'line'])  
-    return df3, len(lines)
+# def yolo():
+#     img_path = "static/data/current.jpg"
+#     im = Image.open(img_path)
+#     results = seg(im, size=640)
+#     df = results.pandas().xyxy[0]
+#     df.rename(columns = {'confidence':'yolo_confidence'}, inplace = True)
+#     #df = df[df['yolo_confidence'] > 0.5]
+#     df["width"] = abs(df["xmax"] - df["xmin"])
+#     df["height"] = abs(df["ymax"] - df["ymin"])
+#     df["xc"] = df["xmin"] + (df["width"] / 2)
+#     df["yc"] = df["ymin"] + (df["height"] / 2)
+#     df["width"] = df["width"].astype(int)
+#     df["height"] = df["height"].astype(int)
+#     df["xc"] = df["xc"].astype(int)
+#     df["yc"] = df["yc"].astype(int)
+#     df = df.drop(['name', 'class', 'xmin', 'ymin', 'xmax', 'ymax'], axis=1)
+#     return df
 
-def saveLinesImg(df, ll):
-    tog = 0
-    thickness = 3
-    colorspace = [(55, 131, 255), (77, 233, 76), (255, 140, 0), (255, 238, 0), (246, 0, 0)]
-    img = cv2.imread("static/data/current.jpg")[..., ::-1]
-    image = img.copy()
-    plt.figure()
-    i = 1
-    for i in range(ll):
-        df2 = df[df['line'] == i]
-        df2 = df2.reset_index()
-        #print(df2)
-        #print("******************************", len(df2))
-        for j in range(len(df2)):
-            # top left
-            start_point = (int(df2['xc'][j] - (df2['width'][j] / 2)), int(df2['yc'][j] - (df2['height'][j] / 2)))
-            # bttm right 
-            end_point = (int(df2['xc'][j] + (df2['width'][j] / 2)), int(df2['yc'][j] + (df2['height'][j] / 2)))
-            image = cv2.rectangle(image, start_point, end_point, colorspace[tog], thickness)
-        tog += 1
-        if tog >= len(colorspace):
-            tog = 0
-    plt.imshow(image)
-    plt.savefig("static/data/yololocs.png")
-    #plt.show()
-    return img
+# def makeLines(df):
+#     xc = df['xc']
+#     yc = df['yc']
+#     w = df['width']
+#     h = df['height']
+#     ycon = df['yolo_confidence']
+#     lines, X, rad, df, nPts = SegmentLines( df )
+#     #print(lines)
+#     #print("****************")
+#     lines = list(reversed(lines))
+#     for i in range(len(lines)):
+#         lines[i] = list(reversed(lines[i]))
+#     #print(lines)
+#     nxc = []
+#     nyc = []
+#     nw = []
+#     nh = []
+#     nl = []
+#     for i in range(len(lines)):
+#         for j in range(len(lines[i])):
+#             nxc.append(xc[lines[i][j]])
+#             nyc.append(yc[lines[i][j]])
+#             nw.append(w[lines[i][j]])
+#             nh.append(h[lines[i][j]])
+#             nl.append(i)
+#     df3 = pd.DataFrame(list(zip(nxc, nyc, nw, nh, nl, ycon)), columns=['xc', 'yc', 'width', 'height', 'line', 'yolo_confidence'])  
+#     return df3, len(lines)
 
-def inferFrag(image, df):
-    fragment = image
-    chars = []
-    conf = []
-    x = []
-    for i in range(len(df)):
-        #cropped = fragment[(ymin):(ymax), (xmin):(xmax)]
-        cropped = fragment[(int(df['yc'][i] - (df['height'][i] / 2))):(int(df['yc'][i] + (df['height'][i] / 2))), 
-                           (int(df['xc'][i] - (df['width'][i] / 2))):(int(df['xc'][i] + (df['width'][i] / 2)))]
-        res = cv2.resize(cropped, (70, 70), interpolation=cv2.INTER_AREA)
-        x = []
-        x.append(res)
-        X = np.array(x)
-        preds = infer.predict(X, verbose=0)
-        imclass = np.argmax(preds[0])
-        char = classes[imclass]
-        prob = preds[0][imclass]
-        chars.append(char)
-        conf.append(prob)
-    df['char'] = chars
-    df['confidence'] = conf
+# def saveLinesImg(df, ll):
+#     tog = 0
+#     thickness = 3
+#     colorspace = [(55, 131, 255), (77, 233, 76), (255, 140, 0), (255, 238, 0), (246, 0, 0)]
+#     img = cv2.imread("static/data/current.jpg")[..., ::-1]
+#     image = img.copy()
+#     plt.figure()
+#     i = 1
+#     for i in range(ll):
+#         df2 = df[df['line'] == i]
+#         df2 = df2.reset_index()
+#         #print(df2)
+#         #print("******************************", len(df2))
+#         for j in range(len(df2)):
+#             # top left
+#             start_point = (int(df2['xc'][j] - (df2['width'][j] / 2)), int(df2['yc'][j] - (df2['height'][j] / 2)))
+#             # bttm right 
+#             end_point = (int(df2['xc'][j] + (df2['width'][j] / 2)), int(df2['yc'][j] + (df2['height'][j] / 2)))
+#             image = cv2.rectangle(image, start_point, end_point, colorspace[tog], thickness)
+#         tog += 1
+#         if tog >= len(colorspace):
+#             tog = 0
+#     plt.imshow(image)
+#     plt.savefig("static/data/yololocs.png")
+#     plt.show()
 
-    return df
+# def inferFrag(df):
+#     fragment = cv2.imread("static/data/current.jpg")
+#     chars = []
+#     conf = []
+#     x = []
+#     for i in range(len(df)):
+#         #cropped = fragment[(ymin):(ymax), (xmin):(xmax)]
+#         cropped = fragment[(int(df['yc'][i] - (df['height'][i] / 2))):(int(df['yc'][i] + (df['height'][i] / 2))), 
+#                            (int(df['xc'][i] - (df['width'][i] / 2))):(int(df['xc'][i] + (df['width'][i] / 2)))]
+#         res = cv2.resize(cropped, (70, 70), interpolation=cv2.INTER_AREA)
+#         x = []
+#         x.append(res)
+#         X = np.array(x)
+#         preds = infer.predict(X, verbose=0)
+#         imclass = np.argmax(preds[0])
+#         char = classes[imclass]
+#         prob = preds[0][imclass]
+#         chars.append(char)
+#         conf.append(prob)
+#     df['char'] = chars
+#     df['resnet_confidence'] = conf
 
-def fullInference():
-    df, ll = makeLines()
-    img = saveLinesImg(df, ll)
-    fdf = inferFrag(img, df)
-    return fdf, img
+#     return df
+
+# def processImage():
+#     yout = yolo()
+#     df, ll = makeLines(yout)
+#     saveLinesImg(df, ll)
+#     df2 = inferFrag(df)
+#     #segdat = df2.to_json("static/data/current.json")
+#     segdat2 = df2.to_csv("static/data/current.csv")
+#     return df2
