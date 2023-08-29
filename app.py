@@ -202,15 +202,15 @@ def linefinder(userinfo):
     df2.to_json('static/data/locs_lines.json')
     ndf = inferFrag(df2)
     ndf.to_csv("static/data/locs_lines_chars.csv")
-    ndf.to_json("static/data/locs_lines_chars.json")
+    ndf.to_json("static/data/locs_lines_chars.json", orient='records')
     saveLinesImg(df2, ll)
     return render_template('linefinder.html')
 
 
 
-@app.route('/inference', methods=['GET', 'POST'])
+@app.route('/showlines', methods=['GET', 'POST'])
 def inference():
-    return render_template('inference.html')
+    return render_template('showlines.html')
 
 
 if __name__=='__main__':

@@ -240,7 +240,6 @@ function sendToFlask() {
          var _height = rects[i].getScaledHeight()-rects[i].strokeWidth;
          var cbox = [_left, _top, _xmax, _ymax, _xc, _yc, _width, _height, _yconf];
          updatedLocs.push(cbox);
-         
     }
     //console.log(updatedLocs);
 
@@ -248,6 +247,8 @@ function sendToFlask() {
     const request = new XMLHttpRequest()
     request.open('POST', `/linefinder/${JSON.stringify(updatedLocs)}`)
     request.send();
+    let toggler = document.getElementById("b10");
+    toggler.removeAttribute("hidden");
 };
 
 
@@ -255,6 +256,7 @@ b8.addEventListener('click', () => {
     sendToFlask();
     
 });
+
 window.onload=function(){
     canvas.requestRenderAll();
   };

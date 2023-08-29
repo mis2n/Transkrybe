@@ -24,7 +24,7 @@
     </div>
 
     <div class="control">
-        <h1 class="div_title">Control Panel</h1>
+        <!-- <h1 class="div_title">Control Panel</h1> -->
         <button class="button" id="b1">Update</button><!--modify: send to line-ification> -->
         <br>
         <button class="button" id="b5">Log Array</button>
@@ -39,12 +39,16 @@
         <br>
         <button class="button" id="b2">Show All</button>
         <br>
-        <br>
         <!-- <button class="button" id="b8">Segment Lines</button> -->
         <form>
             <button class="button" type="button" id="b8">Submit</button>
         </form>
+        <br>
+        <form action="showlines" method="post" enctype="multipart/form-data">
+            <input type="submit" value="show lines" class="button" hidden="hidden" id="b10">
+        </form>
     </div>
+
     <div class="viewer">
         <!-- <h1 class="div_title">Viewer</h1> -->
         <canvas id="canvas"></canvas>
