@@ -157,7 +157,9 @@ b2.addEventListener('click', () => {
 // Listener for button 3: Create new box
 b3.addEventListener('click', () => {
     let i = rects.length;
-    makeRect(width[0], height[0], width[0], height[0], colorSpace[0], i);
+    //makeRect(width[0], height[0], width[0], height[0], colorSpace[0], i);
+    makeRect(25, 25, 65, 65, 5, 5, 40, 40, 1.0, colorSpace[0], i);
+    //makeRect(xc[0], yc[0], xmax[i], ymax[i], xmin[i]-10, ymin[i]-10, width[i], height[i], 1.0, colorSpace[0], i);
 });
 
 // Listener for button 4: Delete active box

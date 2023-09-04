@@ -6,15 +6,11 @@ const ophigh = 100;
 const canvasPad = 10;
 const strokeW = 3;
 var toggle = 0;
-
-
 var colorSpace = ['#3783FF', '#4DE94C', '#FF8C00', '#FFEE00', '#F60000'];
-var lineColors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 
 // create and display canvas with image as background
 var img = document.createElement('img');
 img.src = '/static/data/current' + '.jpg' //imgext;
-
 let canvh = img.height;
 let canvw = img.width;
 
@@ -33,32 +29,8 @@ const canvas = new fabric.Canvas('canvas', {
     height: canvh+canvasPad,
     backgroundcolor: 'grey',
     left: '100%',
-
 });
 canvas.requestRenderAll();
-
-//**********************************************************************************
-// var img2 = document.createElement('img2');
-// img2.src = '/static/line_output.jpg'
-
-// var imgInstance2 = new fabric.Image(img2, {
-//     lockMovementX: true,
-//     lockMovementY: true,
-//     width: canvw,
-//     height: canvh,
-//     left: canvasPad/2,
-//     top: canvasPad/2,
-// });
-
-// const canvas2 = new fabric.Canvas('canvas2', {
-//     backgroundImage: imgInstance2,
-//     width: canvw+canvasPad,
-//     height: canvh+canvasPad,
-//     backgroundcolor: 'grey',
-// });
-
-// canvas2.requestRenderAll();
-//**********************************************************************************
 
 // Function to dynamically create circles
 function makeCircs(cx, cy, w, h, c, idn) {
@@ -89,69 +61,50 @@ function makeCircs(cx, cy, w, h, c, idn) {
     });
 
     var group = new fabric.Group([circle, dot], {
-        selectable: false,
+        selectable: true,
+        hasControls: false,
+        lockMovementX: true,
+        lockMovementY: true,
         lockRotation: true, // disable rotation
         id: cid
 
     });
-
     group.setControlsVisibility({ mtr: false}); // hide rotation control
     canvas.add(group);
     canvas.requestRenderAll();
 }
 
-// import data from json file
+// import and parse data from json file (data includes character locations, line associations, and classification data)
 import datafile from './data/locs_lines_chars.json' assert { type: "json"};
 let data = Object.values(datafile);
-console.log("IMPORTED DATA")
-for (var element in data[0]) {
-    console.log()
-};
-//console.log(data[0]);
+let l =data.length;
 
-// parse data into arrays
-var width = data[1];
-var height = data[2];
-var xc = data[3];
-var yc = data[4];
-var yconf = data[0];
-// var sw = screen.width / 2;
+// Get number of lines on fragment
+var linenums = [];
+var linecolors = [];
+for (let i=0; i<l; i++) {
+    linenums.push(data[i].line)
+}
+var lineset = new Set(linenums)
+let linearr = Array.from(lineset);
+var colorct = linearr.length;
 
-// count number of characters identified by yolo
-function countProperties(obj) {
-    var count = 0;
-
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            ++count;
+// setup colorspace for number of lines in fragment
+var ctog = 0;
+var rcolor;
+for (let i=0; i<colorct; i++) {
+    linecolors.push(colorSpace[ctog]);
+    ctog++;
+    if (ctog >= colorSpace.length) {
+        ctog = 0;
     }
-
-    return count;
 }
 
-let l = countProperties(xc);
-
-// // create circle and dot in centroid (and rectangle if uncommented) for each character
-// for (let i=0; i<l; i++) {
-//     var rcolor = 'blue';
-//     // makeRect(xc[i]-width[i]/2, yc[i]-height[i]/2, width[i], height[i], rcolor, i);
-//     makeCircs(xc[i], yc[i], width[i], height[i], 'red', i);
-// }
-
-// var ctog = 0
-// for (let i=0; i<chardata.length; i++) {
-//     let rcolor = lineColors[ctog];
-//     if (ctog < lineColors.length-1) {
-//         ctog++;
-//     }
-//     else {
-//         ctog = 0;
-//     }
-//     for (let j=0; j<chardata[i].length; j++) {
-//         let ldex = chardata[i][j];
-//         makeCircs(xc[ldex], yc[ldex], width[ldex], height[ldex], rcolor, ldex);
-//     }
-// }
+// Build circles and add to canvas
+for (let i=0; i<l; i++) {
+    rcolor = linecolors[data[i].line];
+    makeCircs(data[i].xc, data[i].yc, data[i].width, data[i].height, rcolor, i);
+}
 
 window.onload=function(){
     canvas.requestRenderAll();

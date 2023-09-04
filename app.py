@@ -80,36 +80,39 @@ def yolo(pth):
     return df
 
 def makeLines(df):
-    xc = df['xc']
-    yc = df['yc']
-    w = df['width']
-    h = df['height']
     xmin = df['xmin']
     xmax = df['xmax']
     ymin = df['ymin']
     ymax = df['ymax']
-    ycon = df['yolo_confidence']
-    lines, X, rad, df, nPts = SegmentLines( df )
-    #print(lines)
-    #print("****************")
+    conf = df['yolo_confidence']
+    linenums = []
+    linepos = []
+    for i in range(len(df)):
+        linenums.append(False)
+        linepos.append(False)
+    lines, X, rad, df2, nPts = SegmentLines( df )
+    
     lines = list(reversed(lines))
     for i in range(len(lines)):
         lines[i] = list(reversed(lines[i]))
-    #print(lines)
-    nxc = []
-    nyc = []
-    nw = []
-    nh = []
-    nl = []
+        
     for i in range(len(lines)):
+        lnum = i
         for j in range(len(lines[i])):
-            nxc.append(xc[lines[i][j]])
-            nyc.append(yc[lines[i][j]])
-            nw.append(w[lines[i][j]])
-            nh.append(h[lines[i][j]])
-            nl.append(i)
-    df3 = pd.DataFrame(list(zip(xmin, ymin, xmax, ymax, nxc, nyc, nw, nh, nl, ycon)), columns=['xmin', 'ymin', 'xmax', 'ymax', 'xc', 'yc', 'width', 'height', 'line', 'yolo_confidence'])  
-    return df3, len(lines)
+            linenums[lines[i][j]] = lnum
+            linepos[lines[i][j]] = j
+    df3 = df2.drop(['x', 'y', 'rad'], axis=1)
+    df3['xmin'] = xmin
+    df3['xmax'] = xmax
+    df3['ymin'] = ymin
+    df3['ymax'] = ymax
+    df3['yolo_conf'] = conf
+    df3['line'] = linenums
+    df3['line_pos'] = linepos
+    df4 = df3.sort_values(by=['line', 'line_pos'], ignore_index=True)
+    
+    return df4, len(lines)
+
 
 def inferFrag(df):
     fragment = cv2.imread("static/data/current.jpg")
