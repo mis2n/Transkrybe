@@ -6,7 +6,6 @@ user interface. This project is a work in progress and is highly experimental. k
 additional model and tools with the goal of creating an all-in-one suite of software tools for professional papyrology.  
 
 <h3>flask app anaconda env setup steps</h3>
-___________________________________________________
 <br>
 <ul>
 <li>install anaconda and/or - 'conda update conda'</ul>
