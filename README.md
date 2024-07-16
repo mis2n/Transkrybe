@@ -21,8 +21,7 @@ ___________________________________________________
 <br>
 if import test passes and model loads, you're good to go
 <br><br>
-Initialize the Flask server by running:<br><br>
-                        python app.py
+Initialize the Flask server by running: python app.py                  
 <br><br>
-You can then access the app in your local browser at:<br><br>
-                        localhost:5000
+You can then access the app in your local browser at: localhost:5000
+                        
