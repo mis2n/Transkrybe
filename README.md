@@ -21,7 +21,7 @@ additional model and tools with the goal of creating an all-in-one suite of soft
 <br>
 <p>
 to test installation, in the repo directory run: python import_test.py
-<br>
+<br><br>
 if import test passes and model loads, you're good to go
 <br><br>
 Initialize the Flask server by running: python app.py                  
