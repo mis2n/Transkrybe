@@ -4,6 +4,10 @@ This repository hosts a prototype web application for AI-assisted transcription 
 highly damaged papyrus fragments. The tool is designed to assist professional papyrologist in their important work. The software utilizes the Flask library as well as Fabric.js for the creation of the interactive 
 user interface. This project is a work in progress and is highly experimental. known bugs exist, primarily surrounding synchronous/asynchronous tasks. Future iterations of this software will likely incorporate 
 additional model and tools with the goal of creating an all-in-one suite of software tools for professional papyrology.  
+<br>
+<video autoplay>
+  <source src="transkrybe.mp4" type="video/mp4" />
+</video>
 
 <h3>flask app anaconda env setup steps</h3>
 <br>
