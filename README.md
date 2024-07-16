@@ -1,4 +1,4 @@
-# new_app
+# Transkrybe
 
 flask app anaconda env setup steps
 ___________________________________________________
