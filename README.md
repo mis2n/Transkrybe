@@ -5,9 +5,12 @@ highly damaged papyrus fragments. The tool is designed to assist professional pa
 user interface. This project is a work in progress and is highly experimental. known bugs exist, primarily surrounding synchronous/asynchronous tasks. Future iterations of this software will likely incorporate 
 additional model and tools with the goal of creating an all-in-one suite of software tools for professional papyrology.  
 <br>
-<video autoplay>
-  <source src="transkrybe.mp4" type="video/mp4" />
-</video>
+
+
+
+https://github.com/user-attachments/assets/ec272409-f441-4212-91c1-b8a801f28f36
+
+
 
 <h3>flask app anaconda env setup steps</h3>
 <br>
