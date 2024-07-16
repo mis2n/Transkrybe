@@ -20,9 +20,9 @@ ___________________________________________________
         to test installation, in the repo directory run: python import_test.py
 <br>
 if import test passes and model loads, you're good to go
-<br>
-Initialize the Flask server by running:<br>
+<br><br>
+Initialize the Flask server by running:<br><br>
                         python app.py
-<br>
-You can then access the app in your local browser at:<br>
+<br><br>
+You can then access the app in your local browser at:<br><br>
                         localhost:5000
