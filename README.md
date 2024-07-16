@@ -7,6 +7,7 @@ additional model and tools with the goal of creating an all-in-one suite of soft
 
 <h3>flask app anaconda env setup steps</h3>
 <br>
+<p>
 <ul>
 <li>install anaconda and/or - 'conda update conda'</ul>
 <li>conda create --name flaskenv python=3.7</ul>
@@ -15,12 +16,15 @@ additional model and tools with the goal of creating an all-in-one suite of soft
 <li>pip install flask</ul>
 <li>pip install -r yolo5_requirements.txt</ul>
 <li>pip install tensorflow</ul>
-<ul><br>
-        to test installation, in the repo directory run: python import_test.py
+</ul>
+</p>
+<br>
+<p>
+to test installation, in the repo directory run: python import_test.py
 <br>
 if import test passes and model loads, you're good to go
 <br><br>
 Initialize the Flask server by running: python app.py                  
 <br><br>
 You can then access the app in your local browser at: localhost:5000
-                        
+</p>                   
